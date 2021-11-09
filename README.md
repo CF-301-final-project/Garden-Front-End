@@ -23,7 +23,8 @@ Josh – Debugging, REACT Components
 
 ### How can you best utilize these strengths in the execution of your project?
 -	Use everyone’s strengths to assign appropriate roles that play to each team members strengths, as we are breaking out roles.
-In which professional competencies do you each want to develop greater strength?
+
+### In which professional competencies do you each want to develop greater strength?
 -	Critical Thinking and Creative Problem Solving
 -	Teamwork and Collaboration
 
@@ -94,11 +95,13 @@ Describe at least:
 ### What is your Git flow?
 -	Main Branch =>> Dev Branch (testing updating) => Individual task branches
 ### Will you be using a PR review workflow? If so, consider:
+2 people for push from individual Branches to Dev
 ### How many people must review a PR?
+Team approval for Dev => Main
 ### Who merges PRs?
 ### How often will you merge?
 ### How will you communicate that it’s time to merge?
--	**In development** Branches will all be created, and the first individual task branch created will call the team together and we will do a crawl phase walk through of the merge procedure to ensure we are all on the same page for this step. ***
+-	**In development** Branches will all be created, and the first individual task branch created will call the team together and we will do a crawl phase walk through of the merge procedure to ensure we are all on the same page for this step.
 
 ## Submitting Your Work
 This is a group submission. Only one person must submit for group credit.
@@ -148,6 +151,9 @@ Garden Working Title
 ### Additional Stretch Goals:
 Garden App - Garden tracking app.  Identify your garden bed location (maybe with HTML Canvas to draw your beds), add information /dates for when items were planted.  Measure Rainfall / watering/ and pest activity.  Look back on crop rotation and pests for different time of year and weather specific to your garden. Needs: Plant API, Weather API, (maybe a pest/insect API) and several data Schemas for Plants and pests.
 Click on a bed, add a plant / harvest / remove / report pests / schedule watering...
+
+- Need to keep the scope small
+- Canvas layout should be a stretch
 
 Restaurant Locator
 1.	Summary of idea.
