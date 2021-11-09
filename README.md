@@ -6,6 +6,10 @@
 - Osborn Del Angel
 - Jeff Inman
 
+
+## Links
+- [Project Trello](https://trello.com/invite/b/sXwmzOw8/a49b55eb66dad186da8b889bf58038f3/the-garden-app) 
+
 ## Planning
 Schedule a 1-hour meeting for your entire project team.
 Use this time to review the Team Agreement requirements below, and establish consensus on how to handle each requirement.
