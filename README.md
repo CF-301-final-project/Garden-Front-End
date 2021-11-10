@@ -174,3 +174,13 @@ Restaurant Locator
 ### Submitting your work
 Only one person needs to submit this assignment for the group to receive credit, please include all names of group members in your pitch document.
 As a group, agree on 2 top ideas. In a doc, or in the text area submit your top two pitches. The instructional staff will then approve one of your two ideas. Please have your top choice listed first, and second choice listed last.
+
+
+
+### Wire Frame
+![Wire Frame](WireFrameGarden.jpg)
+### Domain Model
+![Domain Model](domainModel.jpg)
+### Database Schema
+![DataBase SChema](DatabaseSchema.jpg)
+
