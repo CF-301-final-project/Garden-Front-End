@@ -7,12 +7,12 @@ import AuthButton from "./AuthButton";
 class Header extends React.Component {
   render() {
     const greeting = this.props.user.name
-      ? `Welcome back ${this.props.user["given_name"]}!`
+      ? `Welcome back, Farmer ${this.props.user["given_name"]}!`
       : "Welcome to Dancing With Smurfs. Log in to see your garden.";
     console.log(this.props.user.given_name);
     return (
       <>
-        <h1>GARDEN APP</h1>
+        <h1>Dancing With Smurfs</h1>
         <NavBar variant='success' className='bg-success p-2'>
           <Container>
             <Col lg='2'>

@@ -1,6 +1,7 @@
 import React from "react";
 import PestModal from "./Modals/PestModal";
 import PestButton from "./PestButton";
+import DaDTest from "./DaD/DaDTest";
 
 class Main extends React.Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class Main extends React.Component {
   render() {
     return (
       <>
-        <h1>Main Component</h1>
+        <h1>Garden Action</h1>
+        <DaDTest />
         <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
         <PestButton togglePestModal={this.togglePestModal} />
       </>
