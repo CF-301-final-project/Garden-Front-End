@@ -33,13 +33,13 @@ class Main extends React.Component {
     return (
       <>
         <h1>Garden Land</h1>
-        <BackgroundGrid />
+        {/* <BackgroundGrid /> */}
 
-        {/* <CanvasGarden
+        <CanvasGarden
           plantItems={this.state.plantItems}
           updatePlantItems={this.updatePlantItems}
           loggedIn={this.props.loggedIn}
-        /> */}
+        />
         <div>
           <PestButton togglePestModal={this.togglePestModal} />
         </div>
