@@ -24,13 +24,13 @@ class App extends React.Component {
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <Container className='text-center'>
         <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
         <Routes>
-          <Route path='/' element={<Main loggedin={this.state.loggedIn} />} />
+          <Route path='/' element={<Main loggedIn={this.state.loggedIn} />} />
           <Route path='/about' element={<AboutPage />} />
         </Routes>
         <Footer />

@@ -1,11 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-class Draggable extends React.Component {
+class DragItem extends React.Component {
   drag = (e) => {
     e.dataTransfer.setData("text/plain", e.target.id);
-    console.log(e.target.id);
-    // console.log("Draggable: ", this);
   };
 
   noAllowDrop = (e) => {
@@ -14,17 +11,16 @@ class Draggable extends React.Component {
 
   render() {
     return (
-      <div
+      <img
         id={this.props.id}
         draggable='true'
         onDragStart={this.drag}
         onDragOver={this.noAllowDrop}
-        style={this.props.style}
-      >
-        {this.props.children}
-      </div>
+        alt='placeholder'
+        src='https://via.placeholder.com/50'
+      ></img>
     );
   }
 }
 
-export default Draggable;
+export default DragItem;

@@ -29,10 +29,10 @@ export default class DaDtest extends React.Component {
     return (
       <Wrapper>
         <Droppable id='dr1' style={droppableStyle}>
-          <Draggable id='item1' style={{ margin: "8px" }}>
-            <Item>Bean</Item>
+          <Draggable id='bean' style={{ margin: "8px" }}>
+            <Item id='bean'>Bean</Item>
           </Draggable>
-          <Draggable id='item2' style={{ margin: "8px" }}>
+          <Draggable id='turnip' style={{ margin: "8px" }}>
             <Item>Turnip</Item>
           </Draggable>
         </Droppable>
