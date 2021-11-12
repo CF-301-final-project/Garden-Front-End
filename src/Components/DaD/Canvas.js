@@ -7,8 +7,8 @@ class Plant {
     this.id = id;
     this.x = x;
     this.y = y;
-    this.width = 20;
-    this.height = 20;
+    this.width = 30;
+    this.height = 30;
     this.isDragging = false;
     this.render = () => {
       ctx.save();
@@ -22,9 +22,6 @@ class Plant {
   }
 }
 
-let startX = 0;
-let startY = 0;
-
 class CanvasGarden extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +30,8 @@ class CanvasGarden extends React.Component {
       canvas: "",
       ctx: "",
       movingTime: false,
+      startX: 0,
+      startY: 0,
     };
   }
 
@@ -48,34 +47,14 @@ class CanvasGarden extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    if (this.props.loggedIn) {
-      this.props.plantItems.forEach((plant, idx) => {
-        let p = new Plant(plant.x, plant.y, this.state.ctx, plant.id);
-        p.render();
-      });
-    }
-  }
-
-  draw = () => {
-    const ctx = this.state.ctx;
-    // Clear Canvas
-    ctx.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight);
-
-    //Redraw Canvas
-    this.props.plantItems.forEach((plant) => {
-      this.drawImages(plant.x, plant.y, plant.width, plant.height, ctx);
-    });
-  };
-
-  drawImages = (x, y, width, height, ctx) => {
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(x - 10, y - 10, width, height);
-    ctx.fillStyle = "green";
-    ctx.fill();
-    ctx.lineWidth = 5;
-  };
+  // componentDidUpdate() {
+  //   if (this.props.loggedIn) {
+  //     this.props.plantItems.forEach((plant, idx) => {
+  //       let p = new Plant(plant.x, plant.y, this.state.ctx, plant.id);
+  //       p.render();
+  //     });
+  //   }
+  // }
 
   // MOUSE EVENTS
   // Mouse Coordinates in Canvas
@@ -101,42 +80,74 @@ class CanvasGarden extends React.Component {
         plant.y < plant.y + plant.height
       ) {
         // Drag Object in Canvas
+        // Set starting coordinates for this obj
         this.setState({ movingTime: true });
         plant.isDragging = true;
-        startX = plant.x;
-        startY = plant.y;
-        console.log(startX, startY);
 
-        // update plant in state
+        // Get plant to be moved plant in state ????
         let plantArr = this.props.plantItems;
         let movingPlant = plantArr[idx];
-        console.log(movingPlant);
-
-        // Turn off Dragging
-        plant.isDragging = false;
+        console.log("mousedown move plant", movingPlant);
       }
     });
   };
 
-  mouseUp = (e, plant) => {
-    console.log("mouse up");
+  mouseUp = (e) => {
+    // console.log("mouse up");
     this.setState({ movingTime: false });
+  };
+
+  deactivateDrag = (plant) => {
+    plant.isDragging = false;
+  };
+
+  clear = () => {
+    const ctx = this.state.ctx;
+    ctx.clearRect(0, 0, 800, 600);
+  };
+
+  draw = (arr) => {
+    // Clear Canvas
+    this.clear();
+
+    arr.forEach((plant) => {
+      plant.render();
+    });
+  };
+
+  drawImages = (x, y, width, height, ctx) => {
+    ctx.rect(x - 10, y - 10, width, height);
+    ctx.fillStyle = "green";
+    ctx.fill();
+    ctx.lineWidth = 5;
   };
 
   mouseMove = (e) => {
     if (this.state.movingTime) {
-      console.log("mouse move");
+      // console.log("mouse move");
       e.preventDefault();
+      e.stopPropagation();
 
       let m = this.getMousePos(e);
-      let dx = m.x - startX;
-      let dy = m.y - startY;
+      let sX = this.state.startX;
+      let sY = this.state.startY;
 
-      // // Reset start with current pos
-      startX = m.x;
-      startY = m.y;
+      // dragged to position
+      let dx = m.x - sX;
+      let dy = m.y - sY;
 
-      console.log(startX, startY);
+      // Find draggable plant
+      const plantArr = this.props.plantItems;
+      let movingPlant = plantArr.filter((p) => p.isDragging === true);
+
+      // set plant coordinates to dragged to position
+      movingPlant[0].x = dx;
+      movingPlant[0].y = dy;
+
+      // requestAnimationFrame(this.draw(plantArr));
+      setInterval(this.draw(plantArr), 20);
+      // Draw with updated location
+      movingPlant.isDragging = false;
     }
   };
 
@@ -145,16 +156,18 @@ class CanvasGarden extends React.Component {
     const ctx = this.state.ctx;
     const pos = this.getMousePos(e);
     const data = e.dataTransfer.getData("text/plain");
-    console.log(data);
     const dropElement = document.getElementById(data);
     ctx.drawImage(dropElement, pos.x, pos.y);
   };
 
   addPlant = (e) => {
     const pos = this.getMousePos(e);
+    const plantArr = this.props.plantItems;
     const id = 100 + pos.x;
     const p = new Plant(pos.x, pos.y, this.state.ctx, id);
     this.props.updatePlantItems(p);
+    plantArr.push(p);
+    this.draw(plantArr);
   };
 
   allowDrop = (e) => {
@@ -162,7 +175,7 @@ class CanvasGarden extends React.Component {
   };
 
   render() {
-    // console.log("Canvas props ", this.props);
+    console.log("Canvas props ", this.props.plantItems);
     // console.log("Canvas State: ", this.state);
 
     return (
@@ -180,10 +193,7 @@ class CanvasGarden extends React.Component {
           onDrop={this.drop}
           onDragOver={this.allowDrop}
         ></canvas>
-        {/* <canvas id='ghostCanvas' width='800px'>
-          width={this.state.canvasWidth}
-          height={this.state.canvasHeight}
-        </canvas> */}
+        <button onClick={this.clear}>Clear</button>
       </>
     );
   }
