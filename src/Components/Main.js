@@ -3,6 +3,8 @@ import PestModal from "./Modals/PestModal";
 import PestButton from "./PestButton";
 import DaDTest from "./DaD/DaDTest";
 import CanvasGarden from "./DaD/Canvas";
+import BackgroundGrid from "./GridGarden/BackgroundGrid";
+import Draggable from "./DaD/Draggable";
 
 class Main extends React.Component {
   constructor(props) {
@@ -27,22 +29,23 @@ class Main extends React.Component {
   };
 
   render() {
-    console.log("Main props ", this.props);
+    // console.log("Main props ", this.props);
     return (
       <>
         <h1>Garden Land</h1>
-        {/* <DaDTest /> */}
+        <BackgroundGrid />
 
-        <CanvasGarden
+        {/* <CanvasGarden
           plantItems={this.state.plantItems}
           updatePlantItems={this.updatePlantItems}
           loggedIn={this.props.loggedIn}
-        />
-
-        <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
+        /> */}
         <div>
           <PestButton togglePestModal={this.togglePestModal} />
         </div>
+        <DaDTest />
+
+        <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
       </>
     );
   }
