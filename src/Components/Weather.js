@@ -11,9 +11,9 @@ class Weather extends React.Component {
         {this.props.weather.map((day, idx) => (
           <Accordion defaultActiveKey={idx} >
             <Accordion.Item key={idx}>
-              <Accordion.Header>{day.datetime}</Accordion.Header>
+              <Accordion.Header>{day.date}</Accordion.Header>
               <Accordion.Body>
-                <h3>{day.weather.description}</h3>
+                <h3>{day.description}</h3>
               </Accordion.Body>
             </Accordion.Item>
             </Accordion>

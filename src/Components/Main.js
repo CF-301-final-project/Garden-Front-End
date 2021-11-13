@@ -26,11 +26,11 @@ class Main extends React.Component {
   };
 
   getWeather = async () => {
-    let weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?&postal_code=${this.state.zipCode}&units=I&key=${process.env.REACT_APP_WEATHER_API_KEY}`
+    let weatherUrl = `http://localhost:3001/weather?postal_code=${this.state.zipCode}`
 
     try {
       let weatherData = await axios.get(weatherUrl)
-      let weatherObject = weatherData.data.data
+      let weatherObject = weatherData.data
       this.setState({ weather: weatherObject })
     }
     catch (error) {
