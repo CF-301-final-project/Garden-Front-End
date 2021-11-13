@@ -1,17 +1,9 @@
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion'
 
-
 class Weather extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      limit: 5
-    };
-  }
 
   render() {
-    console.log(this.props.weather)
     return (
       <>
         {this.props.weather.slice(0, 5).map((day, idx) => (
@@ -22,9 +14,9 @@ class Weather extends React.Component {
                 <h3>{day.description}</h3>
               </Accordion.Body>
             </Accordion.Item>
-            </Accordion>
+          </Accordion>
         ))}
-          </>
+      </>
     );
   }
 }
