@@ -3,12 +3,18 @@ import Accordion from 'react-bootstrap/Accordion'
 
 
 class Weather extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      limit: 5
+    };
+  }
 
   render() {
     console.log(this.props.weather)
     return (
       <>
-        {this.props.weather.map((day, idx) => (
+        {this.props.weather.slice(0, 5).map((day, idx) => (
           <Accordion defaultActiveKey={idx} >
             <Accordion.Item key={idx}>
               <Accordion.Header>{day.date}</Accordion.Header>

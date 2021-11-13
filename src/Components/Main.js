@@ -42,6 +42,7 @@ class Main extends React.Component {
   }
 
   render() {
+    console.log(this.state.gardenState)
     return (
       <>
         <h1>Main Component</h1>
