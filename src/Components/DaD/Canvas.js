@@ -87,7 +87,7 @@ class CanvasGarden extends React.Component {
         // Get plant to be moved plant in state ????
         let plantArr = this.props.plantItems;
         let movingPlant = plantArr[idx];
-        console.log("mousedown move plant", movingPlant);
+        console.log("mousedown move plant", movingPlant.isDragging);
       }
     });
   };
@@ -115,12 +115,12 @@ class CanvasGarden extends React.Component {
     });
   };
 
-  drawImages = (x, y, width, height, ctx) => {
-    ctx.rect(x - 10, y - 10, width, height);
-    ctx.fillStyle = "green";
-    ctx.fill();
-    ctx.lineWidth = 5;
-  };
+  // drawImages = (x, y, width, height, ctx) => {
+  //   ctx.rect(x - 10, y - 10, width, height);
+  //   ctx.fillStyle = "green";
+  //   ctx.fill();
+  //   ctx.lineWidth = 5;
+  // };
 
   mouseMove = (e) => {
     if (this.state.movingTime) {
