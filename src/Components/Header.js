@@ -9,10 +9,6 @@ class Header extends React.Component {
     const greeting = this.props.user.name
       ? `Welcome back, Farmer ${this.props.user["given_name"]}!`
       : "Welcome to Dancing With Smurfs. Log in to see your garden.";
-<<<<<<< HEAD
-    // console.log(this.props.user.given_name);
-=======
->>>>>>> dev-branch
     return (
       <>
         <h1>Dancing With Smurfs</h1>

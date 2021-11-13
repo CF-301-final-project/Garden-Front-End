@@ -1,12 +1,9 @@
 import React from "react";
 import PestModal from "./Modals/PestModal";
 import PestButton from "./PestButton";
-<<<<<<< HEAD
 import Weather from './Weather.js'
-=======
 import CanvasGarden from "./CanvasGarden";
 import PlantModal from "./Modals/PlantModal";
->>>>>>> dev-branch
 
 class Main extends React.Component {
   constructor(props) {
@@ -48,12 +45,10 @@ class Main extends React.Component {
     console.log("Main State: ", this.state);
     return (
       <>
-<<<<<<< HEAD
         <h1>Main Component</h1>
         <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
         <PestButton togglePestModal={this.togglePestModal} />
         <Weather weather={this.props.weather} />
-=======
         <h1>Garden Land</h1>
         <p>double click to add a new plant</p>
         {this.state.showTestPlantModal && (
@@ -77,7 +72,6 @@ class Main extends React.Component {
           togglePestModal={this.togglePestModal}
           submitPest={this.submitPest}
         />
->>>>>>> dev-branch
       </>
     );
   }
