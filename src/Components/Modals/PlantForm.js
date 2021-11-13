@@ -18,7 +18,6 @@ class PlantForm extends React.Component {
       lightRequirements: e.target.lightRequirements.value,
       fertilizing: e.target.fertilizing.value,
     };
-    console.log(plantSubmission);
     this.props.submitPlant(plantSubmission);
     this.props.togglePlantModal();
   };

@@ -1,6 +1,12 @@
 import React from "react";
 import "../Styles/canvas.css";
 
+const CreateImageElement = () => {
+  return <img id='pic' alt='plant' src='./burger.png' width={30} height={30}></img>;
+};
+
+//https://via.placeholder.com/50
+
 class Plant {
   constructor(x, y, ctx, id) {
     this.id = id;
@@ -18,6 +24,13 @@ class Plant {
       ctx.fillStyle = "green";
       ctx.fill();
       ctx.lineWidth = 5;
+    };
+
+    this.renderImage = () => {
+      ctx.save();
+      let image = document.getElementById("pic");
+      console.log(image);
+      ctx.drawImage(image, this.x - 10, this.y - 10);
     };
   }
 }
@@ -83,7 +96,8 @@ class CanvasGarden extends React.Component {
     this.clear();
 
     arr.forEach((plant) => {
-      plant.render();
+      plant.renderImage();
+      // plant.render();
     });
   };
 
@@ -160,6 +174,11 @@ class CanvasGarden extends React.Component {
     }
   };
 
+  mouseOver = (e) => {
+    let plant = this.targetHit(e);
+    // console.log(plant);
+  };
+
   drop = (e) => {
     e.preventDefault();
     const ctx = this.state.ctx;
@@ -194,10 +213,12 @@ class CanvasGarden extends React.Component {
 
     return (
       <>
+        <CreateImageElement />
         <canvas
           id='canvas'
           width={this.state.canvasWidth}
           height={this.state.canvasHeight}
+          onClick={this.mouseOver}
           onMouseDown={this.mouseDown}
           onMouseMove={this.mouseMove}
           onMouseUp={this.mouseUp}
