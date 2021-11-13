@@ -3,8 +3,6 @@ import PestModal from "./Modals/PestModal";
 import PestButton from "./PestButton";
 import DaDTest from "./DaD/DaDTest";
 import CanvasGarden from "./DaD/Canvas";
-import BackgroundGrid from "./GridGarden/BackgroundGrid";
-import Draggable from "./DaD/Draggable";
 
 class Main extends React.Component {
   constructor(props) {
@@ -33,7 +31,7 @@ class Main extends React.Component {
     return (
       <>
         <h1>Garden Land</h1>
-        {/* <BackgroundGrid /> */}
+        <p>double click to add a new plant</p>
 
         <CanvasGarden
           plantItems={this.state.plantItems}

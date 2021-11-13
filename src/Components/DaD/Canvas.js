@@ -1,6 +1,5 @@
 import React from "react";
 import "../../Styles/canvas.css";
-import DragItem from "./DragItem";
 
 class Plant {
   constructor(x, y, ctx, id) {
@@ -10,9 +9,10 @@ class Plant {
     this.width = 30;
     this.height = 30;
     this.isDragging = false;
+
+    // Draw item into canvas
     this.render = () => {
       ctx.save();
-
       ctx.beginPath();
       ctx.rect(this.x - 10, this.y - 10, this.width, this.height);
       ctx.fillStyle = "green";
@@ -26,7 +26,6 @@ class CanvasGarden extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
       canvas: "",
       ctx: "",
       movingTime: false,
@@ -35,6 +34,7 @@ class CanvasGarden extends React.Component {
     };
   }
 
+  // wait for canvas element to render
   componentDidMount() {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
@@ -47,16 +47,6 @@ class CanvasGarden extends React.Component {
     });
   }
 
-  // componentDidUpdate() {
-  //   if (this.props.loggedIn) {
-  //     this.props.plantItems.forEach((plant, idx) => {
-  //       let p = new Plant(plant.x, plant.y, this.state.ctx, plant.id);
-  //       p.render();
-  //     });
-  //   }
-  // }
-
-  // MOUSE EVENTS
   // Mouse Coordinates in Canvas
   getMousePos = (e) => {
     // const canvas = document.querySelector("canvas");
@@ -66,6 +56,7 @@ class CanvasGarden extends React.Component {
     return { x: dropX, y: dropY };
   };
 
+  // Grab individual item in canvas
   mouseDown = (e) => {
     // console.log("mouse down");
     e.preventDefault();
@@ -92,6 +83,7 @@ class CanvasGarden extends React.Component {
     });
   };
 
+  // Deactivate mouse Move toggle
   mouseUp = (e) => {
     // console.log("mouse up");
     this.setState({ movingTime: false });
@@ -101,11 +93,15 @@ class CanvasGarden extends React.Component {
     plant.isDragging = false;
   };
 
+  // clear canvas
+  // used in animation and for testing
   clear = () => {
     const ctx = this.state.ctx;
     ctx.clearRect(0, 0, 800, 600);
   };
 
+  // Draw elements from storage on canvas.
+  // Stored items render themselves.
   draw = (arr) => {
     // Clear Canvas
     this.clear();
@@ -114,13 +110,6 @@ class CanvasGarden extends React.Component {
       plant.render();
     });
   };
-
-  // drawImages = (x, y, width, height, ctx) => {
-  //   ctx.rect(x - 10, y - 10, width, height);
-  //   ctx.fillStyle = "green";
-  //   ctx.fill();
-  //   ctx.lineWidth = 5;
-  // };
 
   mouseMove = (e) => {
     if (this.state.movingTime) {
@@ -162,12 +151,30 @@ class CanvasGarden extends React.Component {
 
   addPlant = (e) => {
     const pos = this.getMousePos(e);
-    const plantArr = this.props.plantItems;
-    const id = 100 + pos.x;
-    const p = new Plant(pos.x, pos.y, this.state.ctx, id);
-    this.props.updatePlantItems(p);
-    plantArr.push(p);
-    this.draw(plantArr);
+    const duplicateCheck = () => {
+      let check = false;
+      this.props.plantItems.forEach((plant, idx) => {
+        // Detect object in canvas
+        if (
+          pos.x > plant.x - 0.5 * plant.width &&
+          pos.x < plant.x + plant.width &&
+          pos.y > plant.y - 0.5 * plant.width &&
+          plant.y < plant.y + plant.height
+        ) {
+          check = true;
+          console.warn("Object creation overlap");
+        }
+      });
+      return check;
+    };
+    if (duplicateCheck() == false) {
+      const plantArr = this.props.plantItems;
+      const id = 100 + pos.x;
+      const p = new Plant(pos.x, pos.y, this.state.ctx, id);
+      this.props.updatePlantItems(p);
+      plantArr.push(p);
+      this.draw(plantArr);
+    }
   };
 
   allowDrop = (e) => {
@@ -175,7 +182,7 @@ class CanvasGarden extends React.Component {
   };
 
   render() {
-    console.log("Canvas props ", this.props.plantItems);
+    // console.log("Canvas props ", this.props.plantItems);
     // console.log("Canvas State: ", this.state);
 
     return (
