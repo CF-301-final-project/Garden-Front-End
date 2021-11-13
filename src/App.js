@@ -40,7 +40,6 @@ class App extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
     console.log('app.js - zip: ', this.state.zipCode);
     console.log('app.js - user ', this.state.user);
 
@@ -64,19 +63,6 @@ class App extends React.Component {
           <Footer />
         </Container>
       </>
-=======
-    // console.log(this.state);
-
-    return (
-      <Container className='text-center'>
-        <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
-        <Routes>
-          <Route path='/' element={<Main loggedIn={this.state.loggedIn} />} />
-          <Route path='/about' element={<AboutPage />} />
-        </Routes>
-        <Footer />
-      </Container>
->>>>>>> dev-branch
     );
   }
 }
