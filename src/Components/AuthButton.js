@@ -8,7 +8,7 @@ const LoginButton = ({ loggedIn, updateUser }) => {
   const { user } = useAuth0();
 
   useEffect(() => {
-    console.log("use Effect AuthButton");
+    // console.log("use Effect AuthButton");
     if (user) {
       updateUser(user);
     }

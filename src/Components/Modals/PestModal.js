@@ -11,7 +11,7 @@ class PestModal extends React.Component {
             <Modal.Title>Report Pest Activity</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <PestForm togglePestModal={this.props.togglePestModal} />
+            <PestForm togglePestModal={this.props.togglePestModal} submitPest={this.props.submitPest} />
           </Modal.Body>
         </Modal>
       </>
