@@ -5,6 +5,7 @@ import Container from "react-bootstrap/esm/Container";
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import Weather from './Weather.js'
+import WeatherButton from "./WeatherButton";
 
 class Main extends React.Component {
   constructor(props) {
@@ -50,14 +51,8 @@ class Main extends React.Component {
         <PestButton togglePestModal={this.togglePestModal} />
 
         
-        <Container className='d-flex flex-row-reverse m-4' > 
-          <input placeholder="Enter Zip Code" onChange={(event) => this.setState({ zipCode: event.target.value })}>
-          </input>
-          <Button variant="info" onClick={this.getWeather} >
-            Get Weather!
-          </Button>
-        </Container>
 
+        <WeatherButton/>
         <Weather weather={this.state.weather}/>
       </>
     );

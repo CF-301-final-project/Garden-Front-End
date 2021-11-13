@@ -14,7 +14,6 @@ const LoginButton = ({ loggedIn, updateUser }) => {
     }
   }, [user]);
 
-  console.log(user)
   return (
     <>
       {loggedIn ? (
