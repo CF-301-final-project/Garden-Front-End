@@ -48,6 +48,11 @@ class App extends React.Component {
 
         <Container className='text-center'>
           <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
+          <Routes>
+            <Route path='/' element={<Main loggedin={this.state.loggedIn} weather={this.state.weather} />} />
+            <Route path='/about' element={<AboutPage />} />
+          </Routes>
+
           <Container className='d-flex flex-row-reverse m-4' >
             <input placeholder="Enter Zip Code" onChange={(event) => this.setState({ zipCode: event.target.value })}>
             </input>
@@ -55,11 +60,6 @@ class App extends React.Component {
               Get Weather!
             </Button>
           </Container>
-          <Routes>
-            <Route path='/' element={<Main loggedin={this.state.loggedIn} weather={this.state.weather} />} />
-            <Route path='/about' element={<AboutPage />} />
-          </Routes>
-
           <Footer />
         </Container>
       </>

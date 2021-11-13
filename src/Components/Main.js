@@ -45,19 +45,16 @@ class Main extends React.Component {
     console.log("Main State: ", this.state);
     return (
       <>
-        <h1>Main Component</h1>
         <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
-        <PestButton togglePestModal={this.togglePestModal} />
-        <Weather weather={this.props.weather} />
         <h1>Garden Land</h1>
         <p>double click to add a new plant</p>
         {this.state.showTestPlantModal && (
           <PlantModal
-            showTestPlantModal={this.state.showTestPlantModal}
-            togglePlantModal={this.togglePlantModal}
-            submitPlant={this.submitPlant}
+          showTestPlantModal={this.state.showTestPlantModal}
+          togglePlantModal={this.togglePlantModal}
+          submitPlant={this.submitPlant}
           />
-        )}
+          )}
         <CanvasGarden
           togglePlantModal={this.togglePlantModal}
           plantItems={this.state.plantItems}
@@ -72,6 +69,7 @@ class Main extends React.Component {
           togglePestModal={this.togglePestModal}
           submitPest={this.submitPest}
         />
+          <Weather weather={this.props.weather} />
       </>
     );
   }
