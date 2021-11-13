@@ -11,7 +11,7 @@ class PlantModal extends React.Component {
             <Modal.Title>Report Plant Activity</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <PlantForm togglePlantModal={this.props.togglePlantModal} />
+            <PlantForm togglePlantModal={this.props.togglePlantModal} submitPlant={this.props.submitPlant} />
           </Modal.Body>
         </Modal>
       </>

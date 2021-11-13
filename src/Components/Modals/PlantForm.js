@@ -6,20 +6,61 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 
 class PlantForm extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    const plantSubmission = {
+      plantName: e.target.plantName.value,
+      plantFamily: e.target.plantFamily.value,
+      determinate: e.target.determinate.value,
+      directSowDate: e.target.directSowDate.value,
+      daysToMaturity: e.target.daysToMaturity.value,
+      lightRequirements: e.target.lightRequirements.value,
+      fertilizing: e.target.fertilizing.value,
+    };
+    console.log(plantSubmission);
+    this.props.submitPlant(plantSubmission);
+    this.props.togglePlantModal();
+  };
+
   render() {
     return (
       <Container className='mb-3'>
-        <Form className='text-left'>
-          <Form.Group as={Row} className='mb-2' controlId='Plant Name'>
+        <Form className='text-left' onSubmit={this.handleSubmit}>
+          <Form.Group as={Row} className='mb-2' controlId='plantName'>
             <Form.Label column sm='6'>
               Plant Name
             </Form.Label>
             <Col sm='6'>
-              <Form.Control type='text' placeholder='What type of pest?'></Form.Control>
+              <Form.Control type='text' placeholder='ex: Dancing with Smurfs'></Form.Control>
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} className='mb-2' controlId='datePlanted'>
+          <Form.Group as={Row} className='mb-2' controlId='plantFamily'>
+            <Form.Label column sm='6'>
+              Plant Family
+            </Form.Label>
+            <Col sm='6'>
+              <Form.Control type='text' placeholder='ex: Tomato'></Form.Control>
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row} className='mb-2' controlId='determinate'>
+            <Col>
+              <Form.Label column sm='6'>
+                Determinate
+              </Form.Label>
+            </Col>
+            <Col>
+              <Form.Select>
+                <option>unknown</option>
+                <option>no</option>
+                <option>yes</option>
+              </Form.Select>
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row} className='mb-2' controlId='directSowDate'>
             <Form.Label column sm='6'>
               Date Planted
             </Form.Label>
@@ -28,25 +69,41 @@ class PlantForm extends React.Component {
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} className='mb-2' controlId='Something'>
+          <Form.Group as={Row} className='mb-2' controlId='daysToMaturity'>
             <Form.Label column sm='6'>
-              Details or stuff
+              Days to Maturity
             </Form.Label>
             <Col sm='6'>
-              <Form.Control type='text' placeholder='story time?!'></Form.Control>
+              <Form.Control type='number' min={20} max={300} placeholder={75}></Form.Control>
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} className='mb-2' controlId='stuff'>
-            <Form.Label column sm='6'>
-              Stuff
-            </Form.Label>
-            <Col sm='6'>
-              <Form.Control type='text' placeholder='optional'></Form.Control>
+          <Form.Group as={Row} className='mb-2' controlId='lightRequirements'>
+            <Col>
+              <Form.Label column sm='6'>
+                Light Requirements
+              </Form.Label>
+            </Col>
+            <Col>
+              <Form.Select>
+                <option>Full Sun</option>
+                <option>Partial Sun</option>
+                <option>Shade OK</option>
+              </Form.Select>
             </Col>
           </Form.Group>
+
+          <Form.Group as={Row} className='mb-2' controlId='fertilizing'>
+            <Form.Label column sm='6'>
+              Fertilizer Preference
+            </Form.Label>
+            <Col sm='6'>
+              <Form.Control type='test' placeholder='ex: bone meal or NPK'></Form.Control>
+            </Col>
+          </Form.Group>
+
+          <Button type='submit'>Submit</Button>
         </Form>
-        <Button onClick={this.props.togglePestModal}>Submit</Button>
       </Container>
     );
   }
@@ -55,15 +112,15 @@ class PlantForm extends React.Component {
 export default PlantForm;
 
 // const plantSchema = new mongoose.Schema({
-//   plantName: {type: String},
-//   plantFamily: {type: String},
-//   determinate: {type: Boolean},
-//   directSowDate: {type: Date},
-//   daysToMaturity: {type:Number},
-//   harvestCountdown:{type: Date},
-//   lightRequirements: {type: String},
-//   fertilizing: {type: Object},
-//   companionPlants: {type: Array},
-//   enemyPlants: {type: Array}
+//   plantName: {type: String},x
+//   plantFamily: {type: String},x
+//   determinate: {type: Boolean},x
+//   directSowDate: {type: Date},x
+//   daysToMaturity: {type:Number},x
+//   harvestCountdown:{type: Date}, xx
+//   lightRequirements: {type: String},x
+//   fertilizing: {type: Object},x
+//   companionPlants: {type: Array},xx
+//   enemyPlants: {type: Array}xx
 
 // })

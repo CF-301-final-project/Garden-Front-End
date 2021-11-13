@@ -1,5 +1,4 @@
 import React from "react";
-import PlantModal from "./Modals/PlantModalTest";
 import "../Styles/canvas.css";
 
 class Plant {
