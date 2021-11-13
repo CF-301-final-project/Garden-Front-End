@@ -32,14 +32,12 @@ class App extends React.Component {
     try {
       let weatherData = await axios.get(weatherUrl)
       let weatherObject = weatherData.data
-      this.setState({ weather: weatherObject,
-      user: this.state.user['zipCode']=this.state.zipCode })
+      this.setState({ weather: weatherObject})
     }
     catch (error) {
       console.log(`there was an error with the weather cell: ${error}`)
     };
   }
-
 
   render() {
     console.log('app.js - zip: ', this.state.zipCode);
