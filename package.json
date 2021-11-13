@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tree": "tree -I node_modules",
-    "logg": "git log --graph --oneline --all --decorate -20"
+    "log": "git log --graph --oneline --all --decorate -20"
   },
   "eslintConfig": {
     "extends": [
