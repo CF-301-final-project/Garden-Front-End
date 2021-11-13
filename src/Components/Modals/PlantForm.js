@@ -53,3 +53,17 @@ class PlantForm extends React.Component {
 }
 
 export default PlantForm;
+
+// const plantSchema = new mongoose.Schema({
+//   plantName: {type: String},
+//   plantFamily: {type: String},
+//   determinate: {type: Boolean},
+//   directSowDate: {type: Date},
+//   daysToMaturity: {type:Number},
+//   harvestCountdown:{type: Date},
+//   lightRequirements: {type: String},
+//   fertilizing: {type: Object},
+//   companionPlants: {type: Array},
+//   enemyPlants: {type: Array}
+
+// })

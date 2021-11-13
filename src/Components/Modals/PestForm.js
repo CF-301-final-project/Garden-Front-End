@@ -53,3 +53,12 @@ class PestForm extends React.Component {
 }
 
 export default PestForm;
+
+// const pestSchema = new mongoose.Schema({
+//   pestName: { type: String },
+//   pestFamily: { type: String },
+//   dateSpotted: { type: Date },
+//   weather: { type: Object },
+//   plantsAttacked: { type: Array },
+//   preventiveMeasure: { type: String },
+// });
