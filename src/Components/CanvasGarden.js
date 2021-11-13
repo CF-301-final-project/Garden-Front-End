@@ -1,5 +1,6 @@
 import React from "react";
-import "../../Styles/canvas.css";
+import PlantModal from "./Modals/PlantModalTest";
+import "../Styles/canvas.css";
 
 class Plant {
   constructor(x, y, ctx, id) {
@@ -47,6 +48,47 @@ class CanvasGarden extends React.Component {
     });
   }
 
+  targetHit = (e) => {
+    const pos = this.getMousePos(e);
+    let plantTarget;
+    this.props.plantItems.forEach((plant, idx) => {
+      // Detect object in canvas
+      if (
+        pos.x > plant.x - 0.5 * plant.width &&
+        pos.x < plant.x + plant.width &&
+        pos.y > plant.y - 0.5 * plant.width &&
+        plant.y < plant.y + plant.height
+      ) {
+        plantTarget = plant;
+        console.log("Target Hit");
+      }
+    });
+    return plantTarget;
+  };
+
+  deactivateDrag = (plant) => {
+    plant.isDragging = false;
+  };
+
+  // clear canvas
+  // used in animation and for testing
+  clear = () => {
+    const ctx = this.state.ctx;
+    ctx.clearRect(0, 0, 800, 600);
+  };
+
+  // Draw elements from storage on canvas.
+  // Stored items render themselves.
+  draw = (arr) => {
+    // Clear Canvas
+    this.clear();
+
+    arr.forEach((plant) => {
+      plant.render();
+    });
+  };
+
+  // MOUSE EVENTS
   // Mouse Coordinates in Canvas
   getMousePos = (e) => {
     // const canvas = document.querySelector("canvas");
@@ -74,11 +116,6 @@ class CanvasGarden extends React.Component {
         // Set starting coordinates for this obj
         this.setState({ movingTime: true });
         plant.isDragging = true;
-
-        // Get plant to be moved plant in state ????
-        let plantArr = this.props.plantItems;
-        let movingPlant = plantArr[idx];
-        console.log("mousedown move plant", movingPlant.isDragging);
       }
     });
   };
@@ -87,28 +124,12 @@ class CanvasGarden extends React.Component {
   mouseUp = (e) => {
     // console.log("mouse up");
     this.setState({ movingTime: false });
-  };
-
-  deactivateDrag = (plant) => {
-    plant.isDragging = false;
-  };
-
-  // clear canvas
-  // used in animation and for testing
-  clear = () => {
-    const ctx = this.state.ctx;
-    ctx.clearRect(0, 0, 800, 600);
-  };
-
-  // Draw elements from storage on canvas.
-  // Stored items render themselves.
-  draw = (arr) => {
-    // Clear Canvas
-    this.clear();
-
-    arr.forEach((plant) => {
-      plant.render();
-    });
+    let p = this.targetHit(e);
+    if (p) {
+      const copyProps = this.props.plantItems;
+      const updatePlant = copyProps.filter((plant) => plant.isDragging === true)[0];
+      updatePlant.isDragging = false;
+    }
   };
 
   mouseMove = (e) => {
@@ -151,23 +172,10 @@ class CanvasGarden extends React.Component {
 
   addPlant = (e) => {
     const pos = this.getMousePos(e);
-    const duplicateCheck = () => {
-      let check = false;
-      this.props.plantItems.forEach((plant, idx) => {
-        // Detect object in canvas
-        if (
-          pos.x > plant.x - 0.5 * plant.width &&
-          pos.x < plant.x + plant.width &&
-          pos.y > plant.y - 0.5 * plant.width &&
-          plant.y < plant.y + plant.height
-        ) {
-          check = true;
-          console.warn("Object creation overlap");
-        }
-      });
-      return check;
-    };
-    if (duplicateCheck() == false) {
+    const duplicateCheck = this.targetHit(e);
+
+    if (!duplicateCheck) {
+      this.props.togglePlantModal();
       const plantArr = this.props.plantItems;
       const id = 100 + pos.x;
       const p = new Plant(pos.x, pos.y, this.state.ctx, id);
@@ -182,17 +190,15 @@ class CanvasGarden extends React.Component {
   };
 
   render() {
-    // console.log("Canvas props ", this.props.plantItems);
+    // console.log("Canvas props ", this.props);
     // console.log("Canvas State: ", this.state);
 
     return (
       <>
-        {/* <DragItem id='firstItem' />
-        <DragItem id='secondItem' /> */}
         <canvas
+          id='canvas'
           width={this.state.canvasWidth}
           height={this.state.canvasHeight}
-          id='canvas'
           onMouseDown={this.mouseDown}
           onMouseMove={this.mouseMove}
           onMouseUp={this.mouseUp}
@@ -200,7 +206,6 @@ class CanvasGarden extends React.Component {
           onDrop={this.drop}
           onDragOver={this.allowDrop}
         ></canvas>
-        <button onClick={this.clear}>Clear</button>
       </>
     );
   }
