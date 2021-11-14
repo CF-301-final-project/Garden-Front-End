@@ -9,17 +9,30 @@ import { Routes, Route } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
+import Inventory from "./Components/pages/InventoryPage";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      garden: [],
       loggedIn: false,
       user: [],
       zipCode: [],
       weather: []
     };
   }
+
+
+  componentDidMount() {
+    axios.get(`${process.env.REACT_APP_SERVER}/crops`)
+      .then(infoObj => infoObj.data)
+      .then(data => this.setState({
+        garden: data,
+      }))
+      .catch(err => console.log('error: ', err.message));
+  }
+
 
   updateUser = (info) => {
     if (info) {
@@ -48,6 +61,7 @@ class App extends React.Component {
           <Routes>
             <Route path='/' element={<Main loggedin={this.state.loggedIn} weather={this.state.weather} />} />
             <Route path='/about' element={<AboutPage />} />
+            <Route path='/inventory' element={<Inventory garden={this.state.garden}/>} />
           </Routes>
 
           <Container className='d-flex flex-row-reverse m-4' >
