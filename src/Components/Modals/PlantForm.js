@@ -52,7 +52,6 @@ class PlantForm extends React.Component {
             </Col>
             <Col>
               <Form.Select>
-                <option>unknown</option>
                 <option>no</option>
                 <option>yes</option>
               </Form.Select>

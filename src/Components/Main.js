@@ -13,6 +13,7 @@ class Main extends React.Component {
       showPestModal: false,
       showTestPlantModal: false,
       plantItems: [],
+      newestPlant: {},
     };
   }
 
@@ -28,36 +29,36 @@ class Main extends React.Component {
     this.setState({ showTestPlantModal: !this.state.showTestPlantModal });
   };
 
-  updatePlantItems = (canvasData) => {
-    this.setState({ plantItems: [...this.state.plantItems, canvasData] });
-  };
-
   submitPest = (data) => {
     console.log("main has pest data: ", data);
   };
 
-  movePlant = (p) => {
-    console.log(p);
-    const { id } = p;
-    // PUT REQUEST - update location
-    axios.put(`${process.env.REACT_APP_SERVER}/crops/${id}`);
+  updateNewestPlant = (plantObj) => {
+    this.setState({ newestPlant: plantObj });
   };
 
   // Add Plant to Database and local State
-  submitPlant = (formData) => {
-    const plantFormData = formData;
-    const newPlantData = plantFormData;
-    const newPlantPos = this.state.plantItems[this.state.plantItems.length - 1];
-    const newPlant = { ...newPlantData, ...newPlantPos };
-    console.log(newPlant);
-    this.setState({ plantItems: [...this.state.plantItems, newPlant] });
+  submitPlant = async (formData) => {
+    try {
+      const newPlantData = formData;
+      const newPlantPos = this.state.newestPlant;
+      // const newPlant = { ...newPlantData, ...newPlantPos };
 
-    axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlant);
+      let response = await axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlantData);
+      // console.log(response);
+      if (response.status === 200 && response.data) {
+        const updatedPlant = { ...response.data, ...newPlantPos };
+        // console.log(updatedPlant);
+        this.setState({ plantItems: [...this.state.plantItems, updatedPlant] });
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   render() {
     // console.log("Main props ", this.props);
-    // console.log("Main State: ", this.state);
+    console.log("Main State: ", this.state.plantItems);
     return (
       <>
         <h1>Garden Land</h1>
@@ -70,10 +71,10 @@ class Main extends React.Component {
           />
         )}
         <CanvasGarden
+          updateNewestPlant={this.updateNewestPlant}
           movePlant={this.movePlant}
           togglePlantModal={this.togglePlantModal}
           plantItems={this.state.plantItems}
-          updatePlantItems={this.updatePlantItems}
           loggedIn={this.props.loggedIn}
         />
         <div>
