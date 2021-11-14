@@ -2,7 +2,7 @@ import React from "react";
 import "../Styles/canvas.css";
 
 const CreateImageElement = () => {
-  return <img id='pic' alt='plant' src='./burger.png' width={30} height={30}></img>;
+  return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/plant.webp' width={30} height={30}></img>;
 };
 
 //https://via.placeholder.com/50
@@ -29,8 +29,7 @@ class Plant {
     this.renderImage = () => {
       ctx.save();
       let image = document.getElementById("pic");
-      console.log(image);
-      ctx.drawImage(image, this.x - 10, this.y - 10);
+      ctx.drawImage(image, this.x - 10, this.y - 10, 30, 30);
     };
   }
 }
@@ -142,6 +141,7 @@ class CanvasGarden extends React.Component {
       const copyProps = this.props.plantItems;
       const updatePlant = copyProps.filter((plant) => plant.isDragging === true)[0];
       updatePlant.isDragging = false;
+      this.props.movePlant(p);
     }
   };
 
@@ -175,7 +175,7 @@ class CanvasGarden extends React.Component {
   };
 
   mouseOver = (e) => {
-    let plant = this.targetHit(e);
+    // let plant = this.targetHit(e);
     // console.log(plant);
   };
 
@@ -193,7 +193,7 @@ class CanvasGarden extends React.Component {
     const duplicateCheck = this.targetHit(e);
 
     if (!duplicateCheck) {
-      this.props.togglePlantModal();
+      this.props.togglePlantModal(pos);
       const plantArr = this.props.plantItems;
       const id = 100 + pos.x;
       const p = new Plant(pos.x, pos.y, this.state.ctx, id);

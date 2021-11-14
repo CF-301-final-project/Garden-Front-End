@@ -3,6 +3,7 @@ import PestModal from "./Modals/PestModal";
 import PestButton from "./PestButton";
 import CanvasGarden from "./CanvasGarden";
 import PlantModal from "./Modals/PlantModal";
+import axios from "axios";
 
 class Main extends React.Component {
   constructor(props) {
@@ -27,21 +28,36 @@ class Main extends React.Component {
     this.setState({ showTestPlantModal: !this.state.showTestPlantModal });
   };
 
-  updatePlantItems = (data) => {
-    this.setState({ plantItems: [...this.state.plantItems, data] });
+  updatePlantItems = (canvasData) => {
+    this.setState({ plantItems: [...this.state.plantItems, canvasData] });
   };
 
   submitPest = (data) => {
     console.log("main has pest data: ", data);
   };
 
-  submitPlant = (data) => {
-    console.log("Main has plant data: ", data);
+  movePlant = (p) => {
+    console.log(p);
+    const { id } = p;
+    // PUT REQUEST - update location
+    axios.put(`${process.env.REACT_APP_SERVER}/crops/${id}`);
+  };
+
+  // Add Plant to Database and local State
+  submitPlant = (formData) => {
+    const plantFormData = formData;
+    const newPlantData = plantFormData;
+    const newPlantPos = this.state.plantItems[this.state.plantItems.length - 1];
+    const newPlant = { ...newPlantData, ...newPlantPos };
+    console.log(newPlant);
+    this.setState({ plantItems: [...this.state.plantItems, newPlant] });
+
+    axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlant);
   };
 
   render() {
     // console.log("Main props ", this.props);
-    console.log("Main State: ", this.state);
+    // console.log("Main State: ", this.state);
     return (
       <>
         <h1>Garden Land</h1>
@@ -54,6 +70,7 @@ class Main extends React.Component {
           />
         )}
         <CanvasGarden
+          movePlant={this.movePlant}
           togglePlantModal={this.togglePlantModal}
           plantItems={this.state.plantItems}
           updatePlantItems={this.updatePlantItems}
