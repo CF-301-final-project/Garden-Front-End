@@ -25,7 +25,7 @@ class PlantCanvas {
       ctx.lineWidth = 5;
     };
 
-    this.renderImage = () => {
+    this.renderImage = (ctx) => {
       ctx.save();
       let image = document.getElementById("pic");
       ctx.drawImage(image, this.x - 10, this.y - 10, 30, 30);
@@ -61,9 +61,12 @@ class CanvasGarden extends React.Component {
   }
 
   componentDidUpdate() {
-    // this.setSta te({canvasPlants: this.props.plantItems})
-    this.draw(this.props.plantItems);
-
+    const firstState = this.state.canvasPlants;
+    if (firstState !== this.props.plantItems) {
+      this.setState({canvasPlants : this.props.plantItems})
+      this.draw(this.props.plantItems);
+      console.log('incoming change')
+    } 
   }
 
   targetHit = (e) => {
@@ -98,6 +101,7 @@ class CanvasGarden extends React.Component {
   // Draw elements from storage on canvas.
   // Stored items render themselves.
   draw = (arr) => {
+    const ctx = this.state.ctx;
     // console.log('Draw func: ', arr)
     if (!arr) {
       console.log("no data to draw");
@@ -106,7 +110,7 @@ class CanvasGarden extends React.Component {
       this.clear();
 
       arr.forEach((plant) => {
-        plant.renderImage();
+        plant.renderImage(ctx);
         // plant.render();
       });
     }
@@ -168,19 +172,20 @@ class CanvasGarden extends React.Component {
       let dy = m.y - sY;
 
       // Find draggable plant
-      // const plantArr = [...this.props.plantItems];
+      const plantArr = this.props.plantItems;
       // const plantArr = this.props.plantItems;
-      // let movingPlant = plantArr.filter((p) => p.isDragging === true);
-      let movingPlant = this.props.plantItems.filter((p) => p.isDragging === true);
+      let movingPlant = plantArr.filter((p) => p.isDragging === true);
+      // let movingPlant = this.props.plantItems.filter((p) => p.isDragging === true);
 
-      // console.log(movingPlant[0]);
+      // console.log(movingPlant[0].x, movingPlant[0].y);
       // set plant coordinates to dragged to position
       movingPlant[0].x = dx;
       movingPlant[0].y = dy;
       
       // console.log('move', plantArr)
-      // setInterval(this.draw(plantArr), 20);
-      setInterval(this.draw(this.props.plantItems), 20);
+      this.draw(plantArr);
+      // this.draw(this.props.plantItems);
+      // setInterval(this.draw(this.props.plantItems), 20);
       // Draw with updated location
       // movingPlant.isDragging = false;
     }
@@ -211,7 +216,7 @@ class CanvasGarden extends React.Component {
   };
 
   render() {
-    console.log("Canvas props ", this.props.plantItems);
+    // console.log("Canvas props ", this.props.plantItems);
     // console.log("Canvas State: ", this.state);
 
     return (
