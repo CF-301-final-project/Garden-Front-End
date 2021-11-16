@@ -37,6 +37,14 @@ class Main extends React.Component {
     this.setState({ newestPlant: plantObj });
   };
 
+  movePlant = (data) => {
+    const oldState = [...this.state.plantItems];
+    const id = data._id;
+
+    const plantInMotion = this.state.plantItems.filter((p, idx) => p._id === id);
+    // console.log(plantInMotion)
+  }
+
   // Add Plant to Database and local State
   submitPlant = async (formData) => {
     try {

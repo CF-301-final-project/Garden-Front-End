@@ -28,7 +28,8 @@ class PlantCanvas {
     this.renderImage = (ctx) => {
       ctx.save();
       let image = document.getElementById("pic");
-      ctx.drawImage(image, this.x - 10, this.y - 10, 30, 30);
+      // console.log(ctx);
+     ctx.drawImage(image, this.x - 10, this.y - 10, 30, 30);
     };
   }
 }
@@ -81,7 +82,7 @@ class CanvasGarden extends React.Component {
         plant.y < plant.y + plant.height
       ) {
         plantTarget = plant;
-        console.log("Target Hit");
+        // console.log("Target Hit");
       }
     });
     return plantTarget;
@@ -101,14 +102,15 @@ class CanvasGarden extends React.Component {
   // Draw elements from storage on canvas.
   // Stored items render themselves.
   draw = (arr) => {
-    const ctx = this.state.ctx;
     // console.log('Draw func: ', arr)
     if (!arr) {
       console.log("no data to draw");
     } else {
+      const ctx = this.state.ctx;
       // Clear Canvas
       this.clear();
-
+      
+      // console.log(ctx)
       arr.forEach((plant) => {
         plant.renderImage(ctx);
         // plant.render();
@@ -183,6 +185,7 @@ class CanvasGarden extends React.Component {
       movingPlant[0].y = dy;
       
       // console.log('move', plantArr)
+      this.props.movePlant(movingPlant[0])
       this.draw(plantArr);
       // this.draw(this.props.plantItems);
       // setInterval(this.draw(this.props.plantItems), 20);
