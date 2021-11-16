@@ -38,11 +38,11 @@ class Main extends React.Component {
     this.setState({ newestPlant: plantObj });
   };
 
-  movePlant = (data) => {
-    const id = data._id;
-    const plantInMotion = this.state.plantItems.filter((p, idx) => p._id === id);
-    console.log(plantInMotion)
-  }
+  // movePlant = (data) => {
+  //   const id = data._id;
+  //   const plantInMotion = this.state.plantItems.filter((p, idx) => p._id === id);
+  //   // console.log(plantInMotion)
+  // }
 
   // Add Plant to Database and local State
   submitPlant = async (formData) => {
@@ -67,7 +67,7 @@ class Main extends React.Component {
     return (
       <>
         <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
-        <h1>Garden Land</h1>
+        <h1>Garden Party</h1>
         <p>double click to add a new plant</p>
         {this.state.showTestPlantModal && (
           <PlantModal
@@ -78,7 +78,7 @@ class Main extends React.Component {
           )}
         <CanvasGarden
           updateNewestPlant={this.updateNewestPlant}
-          movePlant={this.movePlant}
+          // movePlant={this.movePlant}
           togglePlantModal={this.togglePlantModal}
           plantItems={this.state.plantItems}
           loggedIn={this.props.loggedIn}

@@ -180,7 +180,7 @@ class CanvasGarden extends React.Component {
       movingPlant[0].y = dy;
       
       // console.log('move', plantArr)
-      this.props.movePlant(movingPlant[0])
+      // this.props.movePlant(movingPlant[0])
       // this.draw(this.props.plantItems);
       // this.draw(this.props.plantItems);
       this.draw(this.props.plantItems);
