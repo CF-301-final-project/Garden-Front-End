@@ -42,6 +42,7 @@ class CanvasGarden extends React.Component {
       movingTime: false,
       startX: 0,
       startY: 0,
+      canvasPlants: []
     };
   }
 
@@ -55,11 +56,14 @@ class CanvasGarden extends React.Component {
       ctx: ctx,
       canvasHeight: "600px",
       canvasWidth: "800px",
+      canvasPlants: this.props.plantItems
     });
   }
 
   componentDidUpdate() {
+    // this.setSta te({canvasPlants: this.props.plantItems})
     this.draw(this.props.plantItems);
+
   }
 
   targetHit = (e) => {
@@ -94,7 +98,7 @@ class CanvasGarden extends React.Component {
   // Draw elements from storage on canvas.
   // Stored items render themselves.
   draw = (arr) => {
-    console.log("draw: ", arr);
+    // console.log('Draw func: ', arr)
     if (!arr) {
       console.log("no data to draw");
     } else {
@@ -164,14 +168,18 @@ class CanvasGarden extends React.Component {
       let dy = m.y - sY;
 
       // Find draggable plant
-      const plantArr = [...this.props.plantItems];
-      let movingPlant = plantArr.filter((p) => p.isDragging === true);
+      // const plantArr = [...this.props.plantItems];
+      // const plantArr = this.props.plantItems;
+      // let movingPlant = plantArr.filter((p) => p.isDragging === true);
+      let movingPlant = this.props.plantItems.filter((p) => p.isDragging === true);
+
       // console.log(movingPlant[0]);
       // set plant coordinates to dragged to position
       movingPlant[0].x = dx;
       movingPlant[0].y = dy;
-
-      // requestAnimationFrame(this.draw(plantArr));
+      
+      // console.log('move', plantArr)
+      // setInterval(this.draw(plantArr), 20);
       setInterval(this.draw(this.props.plantItems), 20);
       // Draw with updated location
       // movingPlant.isDragging = false;
@@ -186,12 +194,15 @@ class CanvasGarden extends React.Component {
       this.props.togglePlantModal();
 
       const plantArr = [...this.props.plantItems];
+      // console.log(plantArr)
       const p = new PlantCanvas(pos.x, pos.y, this.state.ctx);
       this.props.updateNewestPlant(p);
+      
       plantArr.push(p);
-      console.log("addPlant arr: ", plantArr);
-
-      this.draw(this.props.plantArr);
+      // console.log("addPlant arr: ", plantArr);
+      this.draw(plantArr)
+      // this.draw(this.props.plantArr);
+      this.draw(this.props.plantItems)
     }
   };
 
@@ -200,7 +211,7 @@ class CanvasGarden extends React.Component {
   };
 
   render() {
-    // console.log("Canvas props ", this.props);
+    console.log("Canvas props ", this.props.plantItems);
     // console.log("Canvas State: ", this.state);
 
     return (

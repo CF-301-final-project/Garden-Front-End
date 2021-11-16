@@ -58,7 +58,7 @@ class Main extends React.Component {
 
   render() {
     // console.log("Main props ", this.props);
-    console.log("Main State: ", this.state.plantItems);
+    // console.log("Main State: ", this.state.plantItems);
     return (
       <>
         <h1>Garden Land</h1>
