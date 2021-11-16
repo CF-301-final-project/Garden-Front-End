@@ -25,11 +25,10 @@ class PlantCanvas {
       ctx.lineWidth = 5;
     };
 
-    this.renderImage = (ctx) => {
+    this.renderImage = (x,y) => {
       ctx.save();
       let image = document.getElementById("pic");
-      // console.log(ctx);
-     ctx.drawImage(image, this.x - 10, this.y - 10, 30, 30);
+     ctx.drawImage(image, x - 10, y - 10, 30, 30);
     };
   }
 }
@@ -66,7 +65,7 @@ class CanvasGarden extends React.Component {
     if (firstState !== this.props.plantItems) {
       this.setState({canvasPlants : this.props.plantItems})
       this.draw(this.props.plantItems);
-      console.log('incoming change')
+      // console.log('incoming change')
     } 
   }
 
@@ -102,18 +101,14 @@ class CanvasGarden extends React.Component {
   // Draw elements from storage on canvas.
   // Stored items render themselves.
   draw = (arr) => {
-    // console.log('Draw func: ', arr)
     if (!arr) {
       console.log("no data to draw");
     } else {
-      const ctx = this.state.ctx;
       // Clear Canvas
       this.clear();
       
-      // console.log(ctx)
       arr.forEach((plant) => {
-        plant.renderImage(ctx);
-        // plant.render();
+        plant.renderImage(plant.x, plant.y);
       });
     }
   };
@@ -186,9 +181,9 @@ class CanvasGarden extends React.Component {
       
       // console.log('move', plantArr)
       this.props.movePlant(movingPlant[0])
-      this.draw(plantArr);
       // this.draw(this.props.plantItems);
-      // setInterval(this.draw(this.props.plantItems), 20);
+      // this.draw(this.props.plantItems);
+      this.draw(this.props.plantItems);
       // Draw with updated location
       // movingPlant.isDragging = false;
     }

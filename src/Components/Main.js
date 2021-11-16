@@ -38,11 +38,9 @@ class Main extends React.Component {
   };
 
   movePlant = (data) => {
-    const oldState = [...this.state.plantItems];
     const id = data._id;
-
     const plantInMotion = this.state.plantItems.filter((p, idx) => p._id === id);
-    // console.log(plantInMotion)
+    console.log(plantInMotion)
   }
 
   // Add Plant to Database and local State
@@ -53,10 +51,8 @@ class Main extends React.Component {
       // const newPlant = { ...newPlantData, ...newPlantPos };
 
       let response = await axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlantData);
-      // console.log(response);
       if (response.status === 200 && response.data) {
         const updatedPlant = { ...response.data, ...newPlantPos };
-        // console.log(updatedPlant);
         this.setState({ plantItems: [...this.state.plantItems, updatedPlant] });
       }
     } catch (e) {
