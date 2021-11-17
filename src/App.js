@@ -7,7 +7,6 @@ import AboutPage from "./Components/pages/AboutPage";
 import Container from "react-bootstrap/Container";
 import { Routes, Route } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
-import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 import Inventory from "./Components/pages/InventoryPage";
 
@@ -18,11 +17,9 @@ class App extends React.Component {
       garden: [],
       loggedIn: false,
       user: [],
-      zipCode: [],
-      weather: []
+
     };
   }
-
 
   componentDidMount() {
     axios.get(`${process.env.REACT_APP_SERVER}/crops`)
@@ -40,18 +37,6 @@ class App extends React.Component {
     }
   };
 
-  getWeather = async () => {
-    let weatherUrl = `http://localhost:3001/weather?postal_code=${this.state.zipCode}`
-    try {
-      let weatherData = await axios.get(weatherUrl)
-      let weatherObject = weatherData.data
-      this.setState({ weather: weatherObject})
-    }
-    catch (error) {
-      console.log(`there was an error with the weather cell: ${error}`)
-    };
-  }
-
   render() {
     return (
       <>
@@ -63,14 +48,6 @@ class App extends React.Component {
             <Route path='/about' element={<AboutPage />} />
             <Route path='/inventory' element={<Inventory garden={this.state.garden}/>} />
           </Routes>
-
-          <Container className='d-flex flex-row-reverse m-4' >
-            <input placeholder="Enter Zip Code" onChange={(event) => this.setState({ zipCode: event.target.value })}>
-            </input>
-            <Button variant="info" onClick={this.getWeather} >
-              Get Weather!
-            </Button>
-          </Container>
           <Footer />
         </Container>
       </>
