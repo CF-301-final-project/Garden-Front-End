@@ -5,7 +5,6 @@ const vegetableList = [
   "beans",
   "peas",
   "broccoli",
-  "brussel sprouts",
   "berries",
   "cabbage",
   "onion",
