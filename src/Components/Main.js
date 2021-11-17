@@ -18,9 +18,26 @@ class Main extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   console.log("Component Mounted");
-  // }
+  componentDidMount() {
+    console.log("Component Mounted");
+    this.getData()
+  }
+
+  getData = async () => {
+    let db = await axios.get(`${process.env.REACT_APP_SERVER}/crops`)
+    let data = db.data;
+    console.log('Main-getData: ', data)
+    this.setState({ plantItems: data })
+  }
+
+  targetPlant = (plant) => {
+    console.log(plant)
+  }
+
+  updateMoved = async (plant) => {
+    const id = plant._id;
+    await axios.put(`${process.env.REACT_APP_SERVER}/crops/${id}`, plant)
+  }
 
   togglePestModal = () => {
     this.setState({ showPestModal: !this.state.showPestModal });
@@ -38,22 +55,19 @@ class Main extends React.Component {
     this.setState({ newestPlant: plantObj });
   };
 
-  // movePlant = (data) => {
-  //   const id = data._id;
-  //   const plantInMotion = this.state.plantItems.filter((p, idx) => p._id === id);
-  //   // console.log(plantInMotion)
-  // }
 
   // Add Plant to Database and local State
   submitPlant = async (formData) => {
     try {
       const newPlantData = formData;
       const newPlantPos = this.state.newestPlant;
-      // const newPlant = { ...newPlantData, ...newPlantPos };
+      const newPlant = { ...newPlantData, ...newPlantPos };
+      let response = await axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlant);
 
-      let response = await axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlantData);
+      // let response = await axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlantData);
       if (response.status === 200 && response.data) {
         const updatedPlant = { ...response.data, ...newPlantPos };
+        const p = [...this.state.plantItems, updatedPlant]
         this.setState({ plantItems: [...this.state.plantItems, updatedPlant] });
       }
     } catch (e) {
@@ -79,9 +93,11 @@ class Main extends React.Component {
         <CanvasGarden
           updateNewestPlant={this.updateNewestPlant}
           // movePlant={this.movePlant}
+          targetPlant={this.targetPlant}
           togglePlantModal={this.togglePlantModal}
           plantItems={this.state.plantItems}
           loggedIn={this.props.loggedIn}
+          updateMoved={this.updateMoved}
         />
         <div>
           <PestButton togglePestModal={this.togglePestModal} />
