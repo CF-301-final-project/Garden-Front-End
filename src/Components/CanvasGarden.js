@@ -5,7 +5,6 @@ const CreateImageElement = () => {
   return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/plant.webp' width={30} height={30}></img>;
 };
 
-//https://via.placeholder.com/50
 
 class PlantCanvas {
   constructor(x, y, ctx) {

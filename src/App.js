@@ -16,18 +16,21 @@ class App extends React.Component {
     this.state = {
       garden: [],
       loggedIn: false,
-      user: [],
-
+      user: []
     };
   }
 
-  componentDidMount() {
-    axios.get(`${process.env.REACT_APP_SERVER}/crops`)
-      .then(infoObj => infoObj.data)
-      .then(data => this.setState({
-        garden: data,
-      }))
-      .catch(err => console.log('error: ', err.message));
+  // componentDidMount() {
+  //   axios.get(`${process.env.REACT_APP_SERVER}/crops`)
+  //     .then(infoObj => infoObj.data)
+  //     .then(data => this.setState({
+  //       garden: data,
+  //     }))
+  //     .catch(err => console.log('error: ', err.message));
+  // }
+
+  getGarden = (data) => {
+    this.setState({garden: data})
   }
 
 
@@ -40,11 +43,10 @@ class App extends React.Component {
   render() {
     return (
       <>
-
         <Container className='text-center'>
           <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
           <Routes>
-            <Route path='/' element={<Main loggedin={this.state.loggedIn} weather={this.state.weather} />} />
+            <Route path='/' element={<Main loggedin={this.state.loggedIn} getGarden={this.getGarden} weather={this.state.weather} />} />
             <Route path='/about' element={<AboutPage />} />
             <Route path='/inventory' element={<Inventory garden={this.state.garden}/>} />
           </Routes>

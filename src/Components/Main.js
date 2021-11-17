@@ -7,6 +7,7 @@ import PlantModal from "./Modals/PlantModal";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import Container from "react-bootstrap/Container";
+import NotLoggedIn from './NotLoggedIn';
 
 class Main extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class Main extends React.Component {
     let data = db.data;
     console.log('Main-getData: ', data)
     this.setState({ plantItems: data })
+    this.props.getGarden(data);
   }
 
   targetPlant = (plant) => {
@@ -92,20 +94,23 @@ class Main extends React.Component {
   }
 
   render() {
-    // console.log("Main props ", this.props);
+    console.log("Main props ", this.props);
     // console.log("Main State: ", this.state.plantItems);
     return (
       <>
         <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
-        <h1>Garden Party</h1>
-        <p>double click to add a new plant</p>
         {this.state.showTestPlantModal && (
           <PlantModal
-            showTestPlantModal={this.state.showTestPlantModal}
-            togglePlantModal={this.togglePlantModal}
-            submitPlant={this.submitPlant}
+          showTestPlantModal={this.state.showTestPlantModal}
+          togglePlantModal={this.togglePlantModal}
+          submitPlant={this.submitPlant}
           />
-        )}
+          )}
+
+        {this.props.loggedin && 
+        <>
+        <h1>Garden Party</h1>
+        <p>double click to add a new plant</p>
         <CanvasGarden
           updateNewestPlant={this.updateNewestPlant}
           // movePlant={this.movePlant}
@@ -114,10 +119,12 @@ class Main extends React.Component {
           plantItems={this.state.plantItems}
           loggedIn={this.props.loggedIn}
           updateMoved={this.updateMoved}
-        />
-        <div>
-          <PestButton togglePestModal={this.togglePestModal} />
-        </div>
+          ></CanvasGarden> 
+          <div>
+            <PestButton togglePestModal={this.togglePestModal} />
+          </div>
+          </>}
+        {!this.props.loggedin && <NotLoggedIn />}
         <PestModal
           showModal={this.state.showPestModal}
           togglePestModal={this.togglePestModal}
