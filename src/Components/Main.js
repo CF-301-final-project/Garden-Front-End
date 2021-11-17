@@ -5,6 +5,8 @@ import Weather from './Weather.js'
 import CanvasGarden from "./CanvasGarden";
 import PlantModal from "./Modals/PlantModal";
 import axios from "axios";
+import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
 
 class Main extends React.Component {
   constructor(props) {
@@ -14,7 +16,9 @@ class Main extends React.Component {
       showPestModal: false,
       showTestPlantModal: false,
       plantItems: [],
-      newestPlant: {},
+      zipCode: [],
+      weather: [],
+      newestPlant: {}
     };
   }
 
@@ -61,6 +65,18 @@ class Main extends React.Component {
     }
   };
 
+  getWeather = async () => {
+    let weatherUrl = `http://localhost:3001/weather?postal_code=${this.state.zipCode}`
+    try {
+      let weatherData = await axios.get(weatherUrl)
+      let weatherObject = weatherData.data
+      this.setState({ weather: weatherObject })
+    }
+    catch (error) {
+      console.log(`there was an error with the weather cell: ${error}`)
+    };
+  }
+
   render() {
     // console.log("Main props ", this.props);
     // console.log("Main State: ", this.state.plantItems);
@@ -71,11 +87,11 @@ class Main extends React.Component {
         <p>double click to add a new plant</p>
         {this.state.showTestPlantModal && (
           <PlantModal
-          showTestPlantModal={this.state.showTestPlantModal}
-          togglePlantModal={this.togglePlantModal}
-          submitPlant={this.submitPlant}
+            showTestPlantModal={this.state.showTestPlantModal}
+            togglePlantModal={this.togglePlantModal}
+            submitPlant={this.submitPlant}
           />
-          )}
+        )}
         <CanvasGarden
           updateNewestPlant={this.updateNewestPlant}
           // movePlant={this.movePlant}
@@ -91,7 +107,15 @@ class Main extends React.Component {
           togglePestModal={this.togglePestModal}
           submitPest={this.submitPest}
         />
-          <Weather weather={this.props.weather} />
+
+        <Container className='d-flex flex-row-reverse m-4' >
+          <input placeholder="Enter Zip Code" onChange={(event) => this.setState({ zipCode: event.target.value })}>
+          </input>
+          <Button variant="info" onClick={this.getWeather} >
+            Get Weather!
+          </Button>
+        </Container>
+        <Weather weather={this.state.weather} />
       </>
     );
   }
