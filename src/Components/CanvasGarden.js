@@ -199,8 +199,9 @@ class CanvasGarden extends React.Component {
       // this.draw(this.props.plantItems);
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight)
-      this.drawData(this.props.plantItems)
+      ctx.clearRect(0, 0, 800, 600)
+      setInterval(this.drawData(this.props.plantItems),10);
+      // this.draw(this.props.plantItems);
     }
   };
 

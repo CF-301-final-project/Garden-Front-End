@@ -31,7 +31,7 @@ class Main extends React.Component {
   }
 
   targetPlant = (plant) => {
-    console.log(plant)
+    console.log('Target plant: ', plant)
   }
 
   updateMoved = async (plant) => {
