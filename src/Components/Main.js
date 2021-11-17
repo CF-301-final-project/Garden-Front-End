@@ -5,9 +5,12 @@ import Weather from './Weather.js'
 import CanvasGarden from "./CanvasGarden";
 import PlantModal from "./Modals/PlantModal";
 import axios from "axios";
+import NotLoggedIn from './NotLoggedIn';
 import Button from 'react-bootstrap/Button';
 import Container from "react-bootstrap/Container";
-import NotLoggedIn from './NotLoggedIn';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import PlantDetails from "./PlantDetails";
 
 class Main extends React.Component {
   constructor(props) {
@@ -19,7 +22,8 @@ class Main extends React.Component {
       plantItems: [],
       zipCode: [],
       weather: [],
-      newestPlant: {}
+      newestPlant: {},
+      targetPlant: {}
     };
   }
 
@@ -37,7 +41,8 @@ class Main extends React.Component {
   }
 
   targetPlant = (plant) => {
-    console.log('Target plant: ', plant)
+    this.setState({ targetPlant: plant })
+    // console.log('Target plant: ', plant)
   }
 
   updateMoved = async (plant) => {
@@ -97,7 +102,7 @@ class Main extends React.Component {
     console.log("Main props ", this.props);
     // console.log("Main State: ", this.state.plantItems);
     return (
-      <>
+      <Container>
         <PestModal showModal={this.state.showPestModal} togglePestModal={this.togglePestModal} />
         {this.state.showTestPlantModal && (
           <PlantModal
@@ -109,8 +114,15 @@ class Main extends React.Component {
 
         {this.props.loggedin && 
         <>
-        <h1>Garden Party</h1>
-        <p>double click to add a new plant</p>
+        <h4>Here is your garden</h4>
+        <p>click to see OR double click to add.  Feel free to rearrange </p>
+        
+        <Row>
+          <Col lg={3}>
+        <PlantDetails plant={this.state.targetPlant}/>
+          </Col>
+        
+          <Col lg={4}>
         <CanvasGarden
           updateNewestPlant={this.updateNewestPlant}
           // movePlant={this.movePlant}
@@ -123,15 +135,11 @@ class Main extends React.Component {
           <div>
             <PestButton togglePestModal={this.togglePestModal} />
           </div>
-          </>}
-        {!this.props.loggedin && <NotLoggedIn />}
-        <PestModal
-          showModal={this.state.showPestModal}
-          togglePestModal={this.togglePestModal}
-          submitPest={this.submitPest}
-        />
+          </Col>
 
-        <Container className='d-flex flex-row-reverse m-4' >
+          <Row>
+
+          <Container className='d-flex flex-row-reverse m-4' >
           <input placeholder="Enter Zip Code" onChange={(event) => this.setState({ zipCode: event.target.value })}>
           </input>
           <Button variant="info" onClick={this.getWeather} >
@@ -139,7 +147,17 @@ class Main extends React.Component {
           </Button>
         </Container>
         <Weather weather={this.state.weather} />
-      </>
+          </Row>
+     
+        </Row>
+          </>}
+        {!this.props.loggedin && <NotLoggedIn />}
+        <PestModal
+          showModal={this.state.showPestModal}
+          togglePestModal={this.togglePestModal}
+          submitPest={this.submitPest}
+          /> 
+      </Container>
     );
   }
 }

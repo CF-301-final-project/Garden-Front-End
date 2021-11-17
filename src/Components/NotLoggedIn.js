@@ -5,7 +5,8 @@ class NotLoggedIn extends React.Component {
     return (
       <>
         <h1>Don't you want to log in?</h1>
-        <img id='pic' 
+        <img id='pic'
+          className='m-2'
           style={{borderRadius: '10px'}}
           alt='plant'  
           src='./images/herbs.jpeg' 

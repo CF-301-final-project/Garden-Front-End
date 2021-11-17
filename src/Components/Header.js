@@ -11,11 +11,11 @@ class Header extends React.Component {
       : "Welcome to Dancing With Smurfs. Log in to see your garden.";
     return (
       <>
-        <h1>Dancing With Smurfs</h1>
+        <h1>Garden Party</h1>
         <NavBar variant='success' className='bg-success p-2'>
           <Container>
             <Col lg='2'>
-              <NavBar.Brand>{greeting}</NavBar.Brand>
+              <NavBar.Brand className='text-light'>{greeting}</NavBar.Brand>
             </Col>
             <Col lg='3'>
               <Link className='text-light m-2' to='/'>
