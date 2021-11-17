@@ -1,9 +1,14 @@
 import React from "react";
 import "../Styles/canvas.css";
 
-class Plant {
-  constructor(x, y, ctx, id) {
-    this.id = id;
+const CreateImageElement = () => {
+  return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/plant.webp' width={30} height={30}></img>;
+};
+
+//https://via.placeholder.com/50
+
+class PlantCanvas {
+  constructor(x, y, ctx) {
     this.x = x;
     this.y = y;
     this.width = 30;
@@ -19,6 +24,12 @@ class Plant {
       ctx.fill();
       ctx.lineWidth = 5;
     };
+
+    this.renderImage = (x,y) => {
+      ctx.save();
+      let image = document.getElementById("pic");
+     ctx.drawImage(image, x - 10, y - 10, 30, 30);
+    };
   }
 }
 
@@ -31,6 +42,7 @@ class CanvasGarden extends React.Component {
       movingTime: false,
       startX: 0,
       startY: 0,
+      canvasPlants: []
     };
   }
 
@@ -44,7 +56,17 @@ class CanvasGarden extends React.Component {
       ctx: ctx,
       canvasHeight: "600px",
       canvasWidth: "800px",
+      canvasPlants: this.props.plantItems
     });
+  }
+
+  componentDidUpdate() {
+    const firstState = this.state.canvasPlants;
+    if (firstState !== this.props.plantItems) {
+      this.setState({canvasPlants : this.props.plantItems})
+      this.draw(this.props.plantItems);
+      // console.log('incoming change')
+    } 
   }
 
   targetHit = (e) => {
@@ -59,7 +81,7 @@ class CanvasGarden extends React.Component {
         plant.y < plant.y + plant.height
       ) {
         plantTarget = plant;
-        console.log("Target Hit");
+        // console.log("Target Hit");
       }
     });
     return plantTarget;
@@ -79,12 +101,16 @@ class CanvasGarden extends React.Component {
   // Draw elements from storage on canvas.
   // Stored items render themselves.
   draw = (arr) => {
-    // Clear Canvas
-    this.clear();
-
-    arr.forEach((plant) => {
-      plant.render();
-    });
+    if (!arr) {
+      console.log("no data to draw");
+    } else {
+      // Clear Canvas
+      this.clear();
+      
+      arr.forEach((plant) => {
+        plant.renderImage(plant.x, plant.y);
+      });
+    }
   };
 
   // MOUSE EVENTS
@@ -99,9 +125,7 @@ class CanvasGarden extends React.Component {
 
   // Grab individual item in canvas
   mouseDown = (e) => {
-    // console.log("mouse down");
     e.preventDefault();
-    e.stopPropagation();
     const pos = this.getMousePos(e);
     this.props.plantItems.forEach((plant, idx) => {
       // Detect object in canvas
@@ -121,7 +145,6 @@ class CanvasGarden extends React.Component {
 
   // Deactivate mouse Move toggle
   mouseUp = (e) => {
-    // console.log("mouse up");
     this.setState({ movingTime: false });
     let p = this.targetHit(e);
     if (p) {
@@ -147,26 +170,23 @@ class CanvasGarden extends React.Component {
 
       // Find draggable plant
       const plantArr = this.props.plantItems;
+      // const plantArr = this.props.plantItems;
       let movingPlant = plantArr.filter((p) => p.isDragging === true);
+      // let movingPlant = this.props.plantItems.filter((p) => p.isDragging === true);
 
+      // console.log(movingPlant[0].x, movingPlant[0].y);
       // set plant coordinates to dragged to position
       movingPlant[0].x = dx;
       movingPlant[0].y = dy;
-
-      // requestAnimationFrame(this.draw(plantArr));
-      setInterval(this.draw(plantArr), 20);
+      
+      // console.log('move', plantArr)
+      // this.props.movePlant(movingPlant[0])
+      // this.draw(this.props.plantItems);
+      // this.draw(this.props.plantItems);
+      this.draw(this.props.plantItems);
       // Draw with updated location
-      movingPlant.isDragging = false;
+      // movingPlant.isDragging = false;
     }
-  };
-
-  drop = (e) => {
-    e.preventDefault();
-    const ctx = this.state.ctx;
-    const pos = this.getMousePos(e);
-    const data = e.dataTransfer.getData("text/plain");
-    const dropElement = document.getElementById(data);
-    ctx.drawImage(dropElement, pos.x, pos.y);
   };
 
   addPlant = (e) => {
@@ -175,12 +195,17 @@ class CanvasGarden extends React.Component {
 
     if (!duplicateCheck) {
       this.props.togglePlantModal();
-      const plantArr = this.props.plantItems;
-      const id = 100 + pos.x;
-      const p = new Plant(pos.x, pos.y, this.state.ctx, id);
-      this.props.updatePlantItems(p);
+
+      const plantArr = [...this.props.plantItems];
+      // console.log(plantArr)
+      const p = new PlantCanvas(pos.x, pos.y, this.state.ctx);
+      this.props.updateNewestPlant(p);
+      
       plantArr.push(p);
-      this.draw(plantArr);
+      // console.log("addPlant arr: ", plantArr);
+      this.draw(plantArr)
+      // this.draw(this.props.plantArr);
+      this.draw(this.props.plantItems)
     }
   };
 
@@ -189,11 +214,12 @@ class CanvasGarden extends React.Component {
   };
 
   render() {
-    // console.log("Canvas props ", this.props);
+    // console.log("Canvas props ", this.props.plantItems);
     // console.log("Canvas State: ", this.state);
 
     return (
       <>
+        <CreateImageElement />
         <canvas
           id='canvas'
           width={this.state.canvasWidth}
@@ -211,3 +237,12 @@ class CanvasGarden extends React.Component {
 }
 
 export default CanvasGarden;
+
+// drop = (e) => {
+//   e.preventDefault();
+//   const ctx = this.state.ctx;
+//   const pos = this.getMousePos(e);
+//   const data = e.dataTransfer.getData("text/plain");
+//   const dropElement = document.getElementById(data);
+//   ctx.drawImage(dropElement, pos.x, pos.y);
+// };
