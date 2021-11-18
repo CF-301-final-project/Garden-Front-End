@@ -12,7 +12,7 @@ const vegetableList = [
   "leeks",
   "garlic",
   "potatoes",
-  "mellon",
+  "melon",
   "squash",
   "pumpkin",
   "strawberry",
