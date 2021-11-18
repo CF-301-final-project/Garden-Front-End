@@ -12,6 +12,7 @@ const LoginButton = ({ loggedIn, updateUser }) => {
     if (user) {
       updateUser(user);
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (
