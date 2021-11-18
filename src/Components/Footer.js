@@ -6,8 +6,8 @@ class Footer extends React.Component {
   render() {
     return (
       <>
-        <Navbar variant='success' className='bg-success p-2'>
-            <Nav>
+        <Navbar className='bg-primary p-2'  >
+            <Nav className='footer'>
               <Navbar.Brand className='text-light'>Not garden stuff</Navbar.Brand>
               <Nav.Link className='text-light' href='https://github.com/garden-fullstack-app'>
                 github

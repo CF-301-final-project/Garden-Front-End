@@ -136,8 +136,7 @@ class Main extends React.Component {
 
         {this.props.loggedin && 
         <>
-        <h4>Here is your garden</h4>
-        <p>click to see OR double click to add.  Feel free to rearrange </p>
+        <p className='text-light'>click to see OR double click to add.  Feel free to rearrange </p>
         
         <Row>
           <Col lg={3}>
@@ -151,7 +150,7 @@ class Main extends React.Component {
               />
           </Col>
         
-          <Col lg={4}>
+          <Col lg={5}>
             <CanvasGarden
               updateNewestPlant={this.updateNewestPlant}
               // movePlant={this.movePlant}

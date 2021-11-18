@@ -33,7 +33,13 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Container className='text-center'>
+        <Container className='text-center' 
+          style={{backgroundImage: 'url("/images/peas.webp")', 
+            height: '100%', 
+            backgroundRepeat: 'no-repeat', 
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center',
+            padding: '0'}}>
           <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
           <Routes>
             <Route path='/' element={<Main loggedin={this.state.loggedIn} getGarden={this.getGarden} weather={this.state.weather} />} />

@@ -8,7 +8,7 @@ class AboutPage extends React.Component {
     
     return (
       <>
-        <h1>Meet The Team</h1>
+        <h1 className='text-light'>Dancing with Smurfs</h1>
 
             <div className= 'jeff'>
             <Card style={{ textAlign: "center", width:"18rem" }}>
