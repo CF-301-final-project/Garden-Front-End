@@ -7,7 +7,6 @@ import AboutPage from "./Components/pages/AboutPage";
 import Container from "react-bootstrap/Container";
 import { Routes, Route } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
-import axios from 'axios'
 import Inventory from "./Components/pages/InventoryPage";
 
 class App extends React.Component {
