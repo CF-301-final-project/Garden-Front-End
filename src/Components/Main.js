@@ -101,7 +101,6 @@ class Main extends React.Component {
       // let response = await axios.post(`${process.env.REACT_APP_SERVER}/crops`, newPlantData);
       if (response.status === 200 && response.data) {
         const updatedPlant = { ...response.data, ...newPlantPos };
-        const p = [...this.state.plantItems, updatedPlant]
         this.setState({ plantItems: [...this.state.plantItems, updatedPlant] });
       }
     } catch (e) {

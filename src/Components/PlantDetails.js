@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav'
 import EditPlantModal from './Modals/EditPlantModal';
 
-const URL = process.env.REACT_APP_SERVER
 class PlantDetails extends React.Component{
 
   handleEdit = () => {
