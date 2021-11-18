@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import PlantForm from "./PlantForm";
+import EditPlantForm from "./EditPlantForm";
 
 class EditPlantModal extends React.Component {
   render() {
@@ -11,9 +11,10 @@ class EditPlantModal extends React.Component {
             <Modal.Title>Report Plant Activity</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <PlantForm togglePlantModal={this.props.togglePlantModal} submitPlant={this.props.submitPlant} />
+            <EditPlantForm toggleEditPlantModal={this.props.toggleEditPlantModal} submitPlant={this.props.submitPlant} updatePlant={this.props.updatePlant} />
           </Modal.Body>
         </Modal>
+        <EditPlantForm />
       </>
     );
   }

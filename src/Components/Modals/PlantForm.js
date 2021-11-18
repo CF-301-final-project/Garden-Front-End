@@ -25,8 +25,8 @@ class PlantForm extends React.Component {
 
   render() {
     const vegList = vegetableList.sort();
-    const VegFamilyOptions = vegList.map((i) => (
-      <option>{i}</option>
+    const VegFamilyOptions = vegList.map((i, idx) => (
+      <option key={idx}>{i}</option>
     ))
 
     return (
