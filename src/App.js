@@ -7,7 +7,6 @@ import AboutPage from "./Components/pages/AboutPage";
 import Container from "react-bootstrap/Container";
 import { Routes, Route } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
-import axios from 'axios'
 import Inventory from "./Components/pages/InventoryPage";
 
 class App extends React.Component {
@@ -19,15 +18,6 @@ class App extends React.Component {
       user: []
     };
   }
-
-  // componentDidMount() {
-  //   axios.get(`${process.env.REACT_APP_SERVER}/crops`)
-  //     .then(infoObj => infoObj.data)
-  //     .then(data => this.setState({
-  //       garden: data,
-  //     }))
-  //     .catch(err => console.log('error: ', err.message));
-  // }
 
   getGarden = (data) => {
     this.setState({garden: data})
@@ -43,7 +33,13 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Container className='text-center'>
+        <Container className='text-center' 
+          style={{backgroundImage: 'url("/images/peas.webp")', 
+            height: '100%', 
+            backgroundRepeat: 'no-repeat', 
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center',
+            padding: '0'}}>
           <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
           <Routes>
             <Route path='/' element={<Main loggedin={this.state.loggedIn} getGarden={this.getGarden} weather={this.state.weather} />} />

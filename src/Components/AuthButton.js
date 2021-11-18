@@ -12,16 +12,17 @@ const LoginButton = ({ loggedIn, updateUser }) => {
     if (user) {
       updateUser(user);
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (
     <>
       {loggedIn ? (
-        <Button style={{ minWidth: "100px" }} onClick={() => logout()}>
+        <Button variant='info' className='text-light' style={{ minWidth: "100px" }} onClick={() => logout()}>
           Log Out
         </Button>
       ) : (
-        <Button style={{ minWidth: "100px" }} onClick={() => loginWithRedirect()}>
+        <Button variant='info' className='text-light' style={{ minWidth: "100px" }} onClick={() => loginWithRedirect()}>
           Log In
         </Button>
       )}

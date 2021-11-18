@@ -17,15 +17,22 @@ class PestForm extends React.Component {
     const pestSubmission = {
       pestName: e.target.pestName.value,
       dateSpotted: e.target.dateSpotted.value,
-      plantsAttacked: e.target.plantsAttacked.value,
+      plantsAttacked: this.props.targetPlant.plantName,
       preventiveMeasure: e.target.preventiveMeasure.value,
     };
-    console.log(pestSubmission);
-    this.props.togglePestModal();
+    console.log(this);
     this.props.submitPest(pestSubmission);
+    
+    const updatedPlant = {...this.props.targetPlant, pestSubmission}
+    console.log(updatedPlant)
+    this.props.updatePlant(updatedPlant);
+    this.props.togglePestModal();
+    
   };
-
+  
   render() {
+    const plantName = this.props.targetPlant?.plantName;
+
     return (
       <Container className='mb-3'>
         <Form className='text-left' onSubmit={this.handleSubmit}>
@@ -37,15 +44,6 @@ class PestForm extends React.Component {
               <Form.Control type='text' placeholder='What type of pest?'></Form.Control>
             </Col>
           </Form.Group>
-
-          {/* <Form.Group as={Row} className='mb-2' controlId='pestFamily'>
-            <Form.Label column sm='6'>
-              Pest Family
-            </Form.Label>
-            <Col sm='6'>
-              <Form.Control type='text' placeholder='Science Stuff?'></Form.Control>
-            </Col>
-          </Form.Group> */}
 
           <Form.Group as={Row} className='mb-2' controlId='dateSpotted'>
             <Form.Label column sm='6'>
@@ -61,7 +59,7 @@ class PestForm extends React.Component {
               Plants Affected
             </Form.Label>
             <Col sm='6'>
-              <Form.Control type='text' placeholder='Who is under attack?!'></Form.Control>
+              <Form.Control type='text' placeholder={plantName}></Form.Control>
             </Col>
           </Form.Group>
 

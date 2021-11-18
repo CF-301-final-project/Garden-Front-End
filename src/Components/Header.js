@@ -8,11 +8,11 @@ class Header extends React.Component {
   render() {
     const greeting = this.props.user.name
       ? `Welcome back, Farmer ${this.props.user["given_name"]}!`
-      : "Welcome to Dancing With Smurfs. Log in to see your garden.";
+      : "Welcome to the party. Log in to see your garden.";
     return (
-      <>
-        <h1>Garden Party</h1>
-        <NavBar variant='success' className='bg-success p-2'>
+      <div className='bg-primary' style={{borderRadius: '5px', width: '100%'}}>
+        <h1 className='text-light'>Garden Party</h1>
+        <NavBar className='bg-primary p-2'>
           <Container>
             <Col lg='2'>
               <NavBar.Brand className='text-light'>{greeting}</NavBar.Brand>
@@ -31,7 +31,7 @@ class Header extends React.Component {
             </Col>
           </Container>
         </NavBar>
-      </>
+      </div>
     );
   }
 }

@@ -5,7 +5,7 @@ class Weather extends React.Component {
 
   render() {
     return (
-      <div  style={{ maxWidth: '12rem'}}>
+      <div  className='m-3'>
         {this.props.weather.slice(0, 5).map((day, idx) => (
           <Accordion defaultActiveKey='0'>
             <Accordion.Item key={idx}>
