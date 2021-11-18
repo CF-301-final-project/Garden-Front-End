@@ -8,7 +8,7 @@ class Header extends React.Component {
   render() {
     const greeting = this.props.user.name
       ? `Welcome back, Farmer ${this.props.user["given_name"]}!`
-      : "Welcome to Dancing With Smurfs. Log in to see your garden.";
+      : "Welcome to the party. Log in to see your garden.";
     return (
       <>
         <h1>Garden Party</h1>

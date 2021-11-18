@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import vegetableList from '../../vegetableList'
 
 class PlantForm extends React.Component {
   handleSubmit = (e) => {
@@ -23,6 +24,11 @@ class PlantForm extends React.Component {
   };
 
   render() {
+    const vegList = vegetableList.sort();
+    const VegFamilyOptions = vegList.map((i, idx) => (
+      <option key={idx}>{i}</option>
+    ))
+
     return (
       <Container className='mb-3'>
         <Form className='text-left' onSubmit={this.handleSubmit}>
@@ -35,12 +41,16 @@ class PlantForm extends React.Component {
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} className='mb-2' controlId='plantFamily'>
-            <Form.Label column sm='6'>
-              Plant Family
-            </Form.Label>
-            <Col sm='6'>
-              <Form.Control type='text' placeholder='ex: Tomato'></Form.Control>
+        <Form.Group as={Row} className='mb-2' controlId='plantFamily'>
+            <Col>
+              <Form.Label column sm='6'>
+                Plant Family
+              </Form.Label>
+            </Col>
+            <Col>
+              <Form.Select>
+                 { VegFamilyOptions }
+              </Form.Select>
             </Col>
           </Form.Group>
 

@@ -2,21 +2,19 @@ const vegetableList = [
   "tomato",
   "cucumber",
   "avocado",
-  "beans",
-  "peas",
-  "broccoli",
-  "brussel sprouts",
-  "berries",
+  "bean",
+  "pea",
+  "brassica",
   "cabbage",
   "onion",
-  "leeks",
+  "leek",
   "garlic",
-  "potatoes",
+  "potato",
   "melon",
   "squash",
   "pumpkin",
   "strawberry",
-  "herbs",
+  
 ];
 
 export default vegetableList;
