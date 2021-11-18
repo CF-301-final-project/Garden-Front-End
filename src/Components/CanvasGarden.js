@@ -1,8 +1,12 @@
 import React from "react";
 import "../Styles/canvas.css";
 
+// const CreateImageElement = () => {
+//   return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/plant.webp' width={30} height={30}></img>;
+// };
+
 const CreateImageElement = () => {
-  return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/plant.webp' width={30} height={30}></img>;
+  return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/carrot-solid.svg' width={30} height={30}></img>;
 };
 
 
