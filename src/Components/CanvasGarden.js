@@ -5,9 +5,14 @@ import "../Styles/canvas.css";
 //   return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/plant.webp' width={30} height={30}></img>;
 // };
 
-const CreateImageElement = () => {
-  return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/carrot-solid.svg' width={30} height={30}></img>;
-};
+// const CreateImageElement = () => {
+//   return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/carrot-solid.svg' width={30} height={30}></img>;
+// };
+
+const Pea = () => {
+  return <img id='pic' alt='plant' style={{ display: "none" }} src='./images/pea.svg' width={30} height={30}></img>;
+}
+
 
 
 class PlantCanvas {
@@ -65,13 +70,8 @@ class CanvasGarden extends React.Component {
     setTimeout(()=> {
       this.drawData(this.props.plantItems) }
       , 500);
-    // this.drawData(this.props.plantItems)
 
   }
-
-  // componentDidUpdate() {
-  //     this.drawData(this.props.plantItems);
-  // }
 
   targetHit = (e) => {
     const pos = this.getMousePos(e);
@@ -238,7 +238,8 @@ class CanvasGarden extends React.Component {
 
     return (
       <>
-        <CreateImageElement />
+        {/* <CreateImageElement /> */}
+        <Pea />
         <canvas
           id='canvas'
           width={this.state.canvasWidth}
@@ -256,12 +257,3 @@ class CanvasGarden extends React.Component {
 }
 
 export default CanvasGarden;
-
-// drop = (e) => {
-//   e.preventDefault();
-//   const ctx = this.state.ctx;
-//   const pos = this.getMousePos(e);
-//   const data = e.dataTransfer.getData("text/plain");
-//   const dropElement = document.getElementById(data);
-//   ctx.drawImage(dropElement, pos.x, pos.y);
-// };

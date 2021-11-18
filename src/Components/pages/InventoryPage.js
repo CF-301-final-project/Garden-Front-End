@@ -1,25 +1,18 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
-import { ListGroup } from "react-bootstrap";
+import InventoryCard from "./InventoryCard";
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 
 class Inventory extends React.Component {
   render() {
+    const PlantCards = this.props.garden.map((plant, idx) => <InventoryCard plant={plant} id={idx}/>)
     return (
-      <>
-        <h1>Plants in the Garden</h1>
-        <Card style={{ width: '18rem' }}>
-          {this.props.garden.map((plant) => (
-            <><Card.Img variant="top" src={plant.cropImage} alt={plant.plantName} /><Card.Body>
-              <Card.Title>{plant.plantName}</Card.Title>
-              <Card.Text>
-                <p class='text-light'>Plant Description: {plant.plantDescription}</p>
-                <p class='text-light'>Light requirements: {plant.lightRequirements}</p>
-                <p class='text-light'>Average days to first Harvest: {plant.medianDaysToFirstHarvest}</p>
-              </Card.Text>
-            </Card.Body></>
-          ))}
-        </Card>
-      </>
+      <Container style={{minHeight: '600px'}}>
+        <h1 className ='text-light'>Plants in the Garden</h1>
+        <Row lg={4}>
+        {PlantCards}
+      </Row>
+      </Container>
     );
   }
 }

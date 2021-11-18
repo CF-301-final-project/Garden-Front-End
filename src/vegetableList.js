@@ -1,9 +1,7 @@
 const vegetableList = [
   "tomato",
   "cucumber",
-  "avocado",
   "bean",
-  "pea",
   "brassica",
   "cabbage",
   "onion",
