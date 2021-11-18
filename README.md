@@ -178,9 +178,9 @@ As a group, agree on 2 top ideas. In a doc, or in the text area submit your top 
 
 
 ### Wire Frame
-![Wire Frame](WireFrameGarden.jpg)
+![Wire Frame](./Assets/WireFrameGarden.jpg)
 ### Domain Model
-![Domain Model](domainModel.jpg)
+![Domain Model](./Assets/domainModel.jpg)
 ### Database Schema
-![DataBase SChema](DatabaseSchema.jpg)
+![DataBase SChema](./Assets/DatabaseSchema.jpg)
 
