@@ -7,16 +7,32 @@ import AboutPage from "./Components/pages/AboutPage";
 import Container from "react-bootstrap/Container";
 import { Routes, Route } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
+import Inventory from "./Components/pages/InventoryPage";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      garden: [],
       loggedIn: false,
-      user: {},
-      
+      user: []
     };
   }
+
+  // componentDidMount() {
+  //   axios.get(`${process.env.REACT_APP_SERVER}/crops`)
+  //     .then(infoObj => infoObj.data)
+  //     .then(data => this.setState({
+  //       garden: data,
+  //     }))
+  //     .catch(err => console.log('error: ', err.message));
+  // }
+
+  getGarden = (data) => {
+    this.setState({garden: data})
+  }
+
 
   updateUser = (info) => {
     if (info) {
@@ -25,17 +41,18 @@ class App extends React.Component {
   };
 
   render() {
-    // console.log(this.state);
-
     return (
-      <Container className='text-center'>
-        <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
-        <Routes>
-          <Route path='/' element={<Main loggedIn={this.state.loggedIn} />} />
-          <Route path='/about' element={<AboutPage />} />
-        </Routes>
-        <Footer />
-      </Container>
+      <>
+        <Container className='text-center'>
+          <Header loggedIn={this.state.loggedIn} user={this.state.user} updateUser={this.updateUser} />
+          <Routes>
+            <Route path='/' element={<Main loggedin={this.state.loggedIn} getGarden={this.getGarden} weather={this.state.weather} />} />
+            <Route path='/about' element={<AboutPage />} />
+            <Route path='/inventory' element={<Inventory garden={this.state.garden}/>} />
+          </Routes>
+          <Footer />
+        </Container>
+      </>
     );
   }
 }

@@ -1,0 +1,18 @@
+GET http://www.growstuff.org/crops/broccoli.json
+
+
+### Get All Crops
+GET http://localhost:3001/crops
+
+
+
+#SEED
+###
+GET http://localhost:3001/seed
+
+
+# CLEAR
+###
+GET http://localhost:3001/clear
+
+
